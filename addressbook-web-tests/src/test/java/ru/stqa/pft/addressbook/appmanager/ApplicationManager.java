@@ -14,15 +14,17 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private String browser;
+    private ContactHelper contactHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
     }
 
     public void init() {
-        System.setProperty("webdriver.gecko.driver", "C:\\toolsAutomation\\geckodriver-v0.20.1-win64\\geckodriver.exe");
-        // geckodriver-v0.21.0-win64.zip works only with Firefox v.57+
+
         if (browser.equals(BrowserType.FIREFOX)){
+            System.setProperty("webdriver.gecko.driver", "C:\\toolsAutomation\\geckodriver-v0.20.1-win64\\geckodriver.exe");
+            // geckodriver-v0.21.0-win64.zip works only with Firefox v.57+
             wd = new FirefoxDriver();
         } else if(browser.equals(BrowserType.CHROME)){
             wd = new ChromeDriver();
@@ -30,10 +32,11 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        //wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
+        contactHelper = new ContactHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
@@ -49,5 +52,9 @@ public class ApplicationManager {
 
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public ContactHelper getContactHelper() {
+        return contactHelper;
     }
 }

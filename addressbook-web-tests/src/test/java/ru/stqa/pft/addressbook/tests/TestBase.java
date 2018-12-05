@@ -13,7 +13,7 @@ public class TestBase {
     //protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
     @BeforeMethod
-    public void setUp() throws Exception {
+    public void setUp() {
         app.init();
     }
 
