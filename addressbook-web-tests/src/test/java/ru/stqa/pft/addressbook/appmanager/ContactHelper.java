@@ -41,4 +41,17 @@ public class ContactHelper extends HelperBase {
     public void submitContactModification() {
         click(By.name("update"));
     }
+
+    public void selectContact() {
+        click(By.name("selected[]")); // By.xpath("//form[@id='LoginForm']/input[3]")
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void deleteSelectedContacts() {
+        click(By.xpath("//div[@id='content']/form/input[21]"));
+        wd.findElement(By.name("searchstring")).sendKeys("\\9");
+    }
 }
