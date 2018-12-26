@@ -18,7 +18,7 @@ public class GroupModificationTests extends TestBase {
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().initGroupModification();
-        GroupData group = new GroupData(((before.size() - 1).getId()),
+        GroupData group = new GroupData((before.size() - 1),
                 "Group test 1 - MODIFIED",
                 "Test2 - MODIFIED",
                 "Test3 - MODIFIED");
@@ -28,7 +28,7 @@ public class GroupModificationTests extends TestBase {
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(), before.size());
 
-
+        //l4_m8
         before.remove(before.size() - 1);
         before.add(group);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
