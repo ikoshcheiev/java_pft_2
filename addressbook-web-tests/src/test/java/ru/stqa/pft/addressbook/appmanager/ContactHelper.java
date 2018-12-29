@@ -2,9 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -42,8 +46,9 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]")); // By.xpath("//form[@id='LoginForm']/input[3]")
+    public void selectContact(int index) {
+        //click(By.name("selected[]")); // By.xpath("//form[@id='LoginForm']/input[3]")
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public boolean isThereAContact() {
@@ -51,7 +56,21 @@ public class ContactHelper extends HelperBase {
     }
 
     public void deleteSelectedContacts() {
-        click(By.xpath("//div[@id='content']/form/input[21]"));
-        wd.findElement(By.name("searchstring")).sendKeys("\\9");
+        click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
+        wd.switchTo().alert().accept();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> tr = wd.findElements(By.xpath("//table//tr[@name=\"entry\"]"));
+        String groupName = new Select(wd.findElement(By.name("to_group"))).getFirstSelectedOption().getText();
+
+        for(WebElement element : tr){
+            String firstName = element.findElement(By.xpath("td[3]")).getText();
+            String lastName = element.findElement(By.xpath("td[2]")).getText();
+            ContactData contact = new ContactData(firstName, lastName, groupName);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
