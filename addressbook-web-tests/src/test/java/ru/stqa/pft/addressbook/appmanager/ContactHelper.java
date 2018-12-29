@@ -60,6 +60,21 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
+    public void modifyContact(int index, ContactData contact) {
+        selectContact(index);
+        initContactModification();
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToHomePage();
+    }
+
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
+        returnToHomePage();
+    }
+
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> tr = wd.findElements(By.xpath("//table//tr[@name=\"entry\"]"));
@@ -68,7 +83,8 @@ public class ContactHelper extends HelperBase {
         for(WebElement element : tr){
             String firstName = element.findElement(By.xpath("td[3]")).getText();
             String lastName = element.findElement(By.xpath("td[2]")).getText();
-            ContactData contact = new ContactData(firstName, lastName, groupName);
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            ContactData contact = new ContactData(id, firstName, lastName, groupName);
             contacts.add(contact);
         }
         return contacts;
