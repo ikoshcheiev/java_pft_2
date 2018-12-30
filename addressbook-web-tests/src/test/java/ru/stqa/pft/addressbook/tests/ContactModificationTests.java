@@ -11,7 +11,7 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         if (!app.getContactHelper().isThereAContact()) {
             ContactData contact = new ContactData("first name", "second name", "test 1");
             app.getContactHelper().createContact(contact);

@@ -75,6 +75,12 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void deleteContact(int index) {
+        selectContact(index);
+        deleteSelectedContacts();
+        returnToHomePage();
+    }
+
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> tr = wd.findElements(By.xpath("//table//tr[@name=\"entry\"]"));
