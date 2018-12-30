@@ -6,7 +6,9 @@ public class GroupData {
     private String header;
     private String footer;
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -65,4 +67,5 @@ public class GroupData {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
+
 }

@@ -7,8 +7,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver wd) {
@@ -46,9 +47,10 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void selectContact(int index) {
+    public void selectContactById(int id) {
         //click(By.name("selected[]")); // By.xpath("//form[@id='LoginForm']/input[3]")
-        wd.findElements(By.name("selected[]")).get(index).click();
+        //wd.findElements(By.name("selected[]")).get(index).click();
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public boolean isThereAContact() {
@@ -60,8 +62,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void modifyContact(int index, ContactData contact) {
-        selectContact(index);
+    public void modify(ContactData contact) {
+        selectContactById(contact.getId());
         initContactModification();
         fillContactForm(contact, false);
         submitContactModification();
@@ -75,14 +77,14 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void deleteContact(int index) {
-        selectContact(index);
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
         deleteSelectedContacts();
         returnToHomePage();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
         List<WebElement> tr = wd.findElements(By.xpath("//table//tr[@name=\"entry\"]"));
         String groupName = new Select(wd.findElement(By.name("to_group"))).getFirstSelectedOption().getText();
 
@@ -90,12 +92,7 @@ public class ContactHelper extends HelperBase {
             String firstName = element.findElement(By.xpath("td[3]")).getText();
             String lastName = element.findElement(By.xpath("td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            ContactData contact = new ContactData()
-                    .withId(id)
-                    .withFirstname(firstName)
-                    .withSecondname(lastName)
-                    .withGroup(groupName);
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withFirstname(firstName).withSecondname(lastName).withGroup(groupName));
         }
         return contacts;
     }
