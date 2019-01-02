@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -88,7 +87,7 @@ public class ContactHelper extends HelperBase {
         List<WebElement> tr = wd.findElements(By.xpath("//table//tr[@name=\"entry\"]"));
         String groupName = new Select(wd.findElement(By.name("to_group"))).getFirstSelectedOption().getText();
 
-        for(WebElement element : tr){
+        for (WebElement element : tr) {
             String firstName = element.findElement(By.xpath("td[3]")).getText();
             String lastName = element.findElement(By.xpath("td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
