@@ -32,9 +32,10 @@ public class GroupModificationTests extends TestBase {
                 .withHeader("Test2 - MODIFIED")
                 .withFooter("Test3 - MODIFIED");
         app.group().modify(group);
-        Groups after = app.group().all();
 
-        MatcherAssert.assertThat(after.size(), equalTo(before.size()));
+        MatcherAssert.assertThat(app.group().count(), equalTo(before.size()));
+
+        Groups after = app.group().all();
         MatcherAssert.assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 }
