@@ -4,12 +4,13 @@ public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String firstname;
     private String secondname;
+
+    private String fullname = null;
     private String group;
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
-
-    private String allPhones;
+    private String allPhones = null;
 
     public int getId() {
         return id;
@@ -21,6 +22,12 @@ public class ContactData {
 
     public String getSecondname() {
         return secondname;
+    }
+
+    public String getFullName() {
+        if(fullname != null){
+            return fullname;
+        }else return secondname + " " + firstname;
     }
 
     public String getGroupName() {
@@ -55,6 +62,11 @@ public class ContactData {
 
     public ContactData withLastname(String secondname) {
         this.secondname = secondname;
+        return this;
+    }
+
+    public ContactData withFullname(String fullname) {
+        this.fullname = fullname;
         return this;
     }
 

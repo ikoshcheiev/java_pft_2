@@ -75,6 +75,15 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void modify(ContactData contact) {
+        //initContactModification();
+        //int id = contact.getId();
+        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.getId()))).click();
+        fillContactForm(contact, false);
+        submitContactModification();
+        returnToHomePage();
+    }
+
     public Set<ContactData> all() {
         Set<ContactData> contacts = new HashSet<>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
@@ -114,12 +123,29 @@ public class ContactHelper extends HelperBase {
         //wd.findElement(By..cssSelector(String.format("input[value='%s']"/../../td[8]/a, id))) // 8 потому что нумерация с 1 а не с 0
     }
 
-    public void modify(ContactData contact) {
-        //initContactModification();
-        //int id = contact.getId();
-        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.getId()))).click();
-        fillContactForm(contact, false);
-        submitContactModification();
-        returnToHomePage();
+    public ContactData infoFromDetailsPage(ContactData contact) {
+        initContactDetailsOpeningById(contact.getId());
+        String fullName = wd.findElement(By.xpath("//div[@id='content']/b")).getText();
+        String allPhones = wd.findElement(By.xpath("//div[@id='content']/b/..")).getText();
+        allPhones = allPhones.substring(0, allPhones.indexOf(wd.findElement(By.xpath("//div[@id='content']/a")).getText()));
+        if(allPhones.contains("H:")){
+            allPhones = allPhones.substring(allPhones.indexOf("H: ") + 3);
+            if(allPhones.contains("M:"))allPhones = allPhones.substring(0, allPhones.indexOf("M: ")) + allPhones.substring(allPhones.indexOf("M: ") + 3);
+            if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
+        }else if(allPhones.contains("M:")){
+            allPhones = allPhones.substring(allPhones.indexOf("M: ") + 3);
+            if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
+        }else if(allPhones.contains("W:")) {
+            allPhones = allPhones.substring(allPhones.indexOf("W: ") + 3);
+        }else allPhones = null;
+
+
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFullname(fullName)
+                .withAllPhones(allPhones);
+    }
+
+    private void initContactDetailsOpeningById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
     }
 }
