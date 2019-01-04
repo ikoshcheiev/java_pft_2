@@ -8,13 +8,13 @@ import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test//(enabled = false)
+    @Test(enabled = false)
     public void testContactCreation() {
         app.goTo().homePage();
         Set<ContactData> before = app.contact().all();
         ContactData contact = new ContactData()
                 .withFirstname("first name")
-                .withSecondname("second name")
+                .withLastname("second name")
                 .withGroup("test 1");
         app.contact().create(contact);
 

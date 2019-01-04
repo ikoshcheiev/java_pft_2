@@ -13,11 +13,11 @@ public class ContactDeletionTests extends TestBase {
     public void ensurePreconditions(){
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstname("first name").withSecondname("second name").withGroup("test 1"));
+            app.contact().create(new ContactData().withFirstname("first name").withLastname("second name").withGroup("test 1"));
         }
     }
 
-    @Test//(enabled = false)
+    @Test(enabled = false)
     public void testContactDeletion() {
         Set<ContactData> before = app.contact().all();
         ContactData deletedContact = before.iterator().next();

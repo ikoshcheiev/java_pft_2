@@ -13,18 +13,18 @@ public class ContactModificationTests extends TestBase {
     public void ensurePreconditions(){
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
-            app.contact().create(new ContactData().withFirstname("first name").withSecondname("second name").withGroup("test 1"));
+            app.contact().create(new ContactData().withFirstname("first name").withLastname("second name").withGroup("test 1"));
         }
     }
 
-    @Test//enabled = false)
+    @Test(enabled = false)
     public void testContactModification() {
         Set<ContactData> before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId( modifiedContact.getId())
                 .withFirstname("first name modified")
-                .withSecondname("second name modified")
+                .withLastname("second name modified")
                 .withGroup("test 1");
         app.contact().modify(contact);
 

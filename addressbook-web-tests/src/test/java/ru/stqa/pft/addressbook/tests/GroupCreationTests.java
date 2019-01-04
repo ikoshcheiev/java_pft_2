@@ -19,7 +19,8 @@ public class GroupCreationTests extends TestBase {
         MatcherAssert.assertThat(app.group().count(), equalTo(before.size() + 1));
 
         Groups after = app.group().all();
-        MatcherAssert.assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        MatcherAssert.assertThat(after, equalTo(
+                before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
     @Test
