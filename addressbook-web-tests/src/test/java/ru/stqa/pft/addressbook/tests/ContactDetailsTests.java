@@ -18,6 +18,10 @@ public class ContactDetailsTests extends TestBase {
 
         MatcherAssert.assertThat(mergePhones(contact), equalTo(mergePhones(contactDetailsFromDetailsPage)));
         MatcherAssert.assertThat(contact.getFullName(), equalTo(contactDetailsFromDetailsPage.getFullName()));
+        contact.getAddress();
+        contactDetailsFromDetailsPage.getAddress();
+        MatcherAssert.assertThat(contact.getAddress(), equalTo(contactDetailsFromDetailsPage.getAddress()));
+        MatcherAssert.assertThat(contact.getEmail(), equalTo(contactDetailsFromDetailsPage.getEmail()));
     }
 
     private String mergePhones(ContactData contact) {

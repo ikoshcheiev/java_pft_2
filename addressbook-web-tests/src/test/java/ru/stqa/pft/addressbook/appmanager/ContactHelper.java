@@ -94,9 +94,17 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String firstName = cells.get(1).getText();
             String lastName = cells.get(2).getText();
+            String address = cells.get(3).getText().replaceAll("\\n", "");
+            String email = cells.get(4).getText();
             String allPhones = cells.get(5).getText();
             //String[] phones = cells.get(5).getText().split("\n");
-            contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllPhones(allPhones));
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstname(firstName)
+                    .withLastname(lastName)
+                    .withAllPhones(allPhones)
+                    .withAddress(address)
+                    .withEmail(email));
         }
         return contacts;
     }
@@ -108,41 +116,48 @@ public class ContactHelper extends HelperBase {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String email = wd.findElement(By.name("email")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstName).withLastname(lastName)
-                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email);
     }
 
     private void initContactModificationById(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
-        /*WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
-        WebElement row = checkbox.findElement(By.xpath("./../..")); // однимаемся на 2ой элемент вверх
-        List<WebElement> cells = row.findElements(By.tagName("td"));
-        cells.get(7).findElement(By.tagName("a")).click();*/
-
-        //wd.findElement(By..cssSelector(String.format("input[value='%s']"/../../td[8]/a, id))) // 8 потому что нумерация с 1 а не с 0
     }
 
     public ContactData infoFromDetailsPage(ContactData contact) {
         initContactDetailsOpeningById(contact.getId());
-        String fullName = wd.findElement(By.xpath("//div[@id='content']/b")).getText();
+        String fullName = wd.findElement(By.cssSelector("div#content > b")).getText();
         String allPhones = wd.findElement(By.xpath("//div[@id='content']/b/..")).getText();
-        allPhones = allPhones.substring(0, allPhones.indexOf(wd.findElement(By.xpath("//div[@id='content']/a")).getText()));
+        String address = wd.findElement(By.xpath("//div[@id='content']/b/..")).getText();
+
+        String email = wd.findElement(By.cssSelector("div#content > a")).getAttribute("href");
+        if(!email.isEmpty()) {allPhones = allPhones.substring(0, allPhones.indexOf(wd.findElement(By.xpath("//div[@id='content']/a")).getText()));}
+
         if(allPhones.contains("H:")){
-            allPhones = allPhones.substring(allPhones.indexOf("H: ") + 3);
+            allPhones = allPhones.substring(allPhones.indexOf("H: "));
+            address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
+            allPhones = allPhones.substring("H: ".length());
             if(allPhones.contains("M:"))allPhones = allPhones.substring(0, allPhones.indexOf("M: ")) + allPhones.substring(allPhones.indexOf("M: ") + 3);
             if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
         }else if(allPhones.contains("M:")){
-            allPhones = allPhones.substring(allPhones.indexOf("M: ") + 3);
+            allPhones = allPhones.substring(allPhones.indexOf("M: "));
+            address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
+            allPhones = allPhones.substring("M: ".length());
             if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
         }else if(allPhones.contains("W:")) {
-            allPhones = allPhones.substring(allPhones.indexOf("W: ") + 3);
+            allPhones = allPhones.substring(allPhones.indexOf("W: "));
+            address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
+            allPhones = allPhones.substring("W: ".length());
         }else allPhones = null;
 
-
+        email = email.substring(email.indexOf("mailto:") + "mailto:".length());
+        address = address.replaceAll("\\n", "");
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()).withFullname(fullName)
-                .withAllPhones(allPhones);
+        return new ContactData().withId(contact.getId()).withFullname(fullName).withAddress(address)
+                .withAllPhones(allPhones).withEmail(email);
     }
 
     private void initContactDetailsOpeningById(int id) {
