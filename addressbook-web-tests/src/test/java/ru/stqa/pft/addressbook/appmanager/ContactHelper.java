@@ -23,6 +23,7 @@ public class ContactHelper extends HelperBase {
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getSecondname());
+        attach(By.name("photo"), contactData.getPhoto());
         //l3_m9
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("Group test 1 - MODIFIED");

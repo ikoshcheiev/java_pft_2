@@ -4,18 +4,21 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
+import java.io.File;
 import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test(enabled = false)
+    @Test//(enabled = false)
     public void testContactCreation() {
         app.goTo().homePage();
         Set<ContactData> before = app.contact().all();
+        File photo = new File("src/test/resources/stru.png");
         ContactData contact = new ContactData()
                 .withFirstname("first name")
                 .withLastname("second name")
-                .withGroup("test 1");
+                .withGroup("test 1")
+                .withPhoto(photo);
         app.contact().create(contact);
 
         Set<ContactData> after = app.contact().all();
