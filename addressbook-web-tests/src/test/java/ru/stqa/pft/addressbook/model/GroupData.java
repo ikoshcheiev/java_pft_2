@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -7,8 +8,11 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 public class GroupData {
     @XStreamOmitField // skip next field
     private int id = Integer.MAX_VALUE;
+    @Expose //which should be present in Json and add .excludeFieldsWithoutExposeAnnotation() in creation new Gson()
     private String name;
+    @Expose
     private String header;
+    @Expose
     private String footer;
 
     public int getId() {

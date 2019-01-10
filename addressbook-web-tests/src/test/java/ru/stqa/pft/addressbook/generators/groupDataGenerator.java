@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.GroupData;
 
@@ -41,13 +43,24 @@ public class GroupDataGenerator {
         if(format.equals("csv")){
             saveAsCSV(groups, new File(file));
         }else if(format.equals("xml")){
-            saveAsXML(groups, new File(file));
+            saveAsXml(groups, new File(file));
+        }else if(format.equals("json")){
+            saveAsJson(groups, new File(file));
         }else {
             System.out.println("Unrecognized format " + format);
         }
     }
 
-    private void saveAsXML(List<GroupData> groups, File file) throws IOException {
+    private void saveAsCSV(List<GroupData> groups, File file) throws IOException {
+        System.out.println(new File(".").getAbsolutePath());
+        Writer writer = new FileWriter(file);
+        for (GroupData group : groups) {
+            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+        }
+        writer.close();
+    }
+
+    private void saveAsXml(List<GroupData> groups, File file) throws IOException {
         // How to make XML saving on X-Stream - http://x-stream.github.io/tutorial.html
         XStream xstream = new XStream();
         // Make proper tag instead of <ru.stqa.pft.addressbook.model.GroupData>
@@ -61,12 +74,13 @@ public class GroupDataGenerator {
         writer.close();
     }
 
-    private void saveAsCSV(List<GroupData> groups, File file) throws IOException {
-        System.out.println(new File(".").getAbsolutePath());
+    private void saveAsJson(List<GroupData> groups, File file) throws IOException {
+        // Serialization
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create(); // instead of new Gson()
+        String json = gson.toJson(groups);
+
         Writer writer = new FileWriter(file);
-        for (GroupData group : groups) {
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
-        }
+        writer.write(json);
         writer.close();
     }
 
