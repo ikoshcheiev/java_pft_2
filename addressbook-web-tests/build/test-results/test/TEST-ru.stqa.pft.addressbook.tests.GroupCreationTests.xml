@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.GroupCreationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-01-13T21:53:37" hostname="ASUS-A55V" time="7.325">
+  <properties/>
+  <testcase name="testGroupCreation[0](GroupData{id=2147483647, name='test 0'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="2.974"/>
+  <testcase name="testGroupCreation[1](GroupData{id=2147483647, name='test 1'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="2.143"/>
+  <testcase name="testGroupCreation[2](GroupData{id=2147483647, name='test 2'})" classname="ru.stqa.pft.addressbook.tests.GroupCreationTests" time="2.206"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[1547416417234	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/"
+1547416417263	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/"
+1547416417264	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/"
+1547416417276	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416417300	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416417932	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416417962	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416417963	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416417974	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416418001	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416418282	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416418598	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416418950	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416419096	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416419140	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416419141	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416419151	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416419188	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416419261	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416419292	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416419293	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416419305	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416419345	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416420147	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416420176	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416420176	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416420188	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416420217	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416420296	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416420324	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416420325	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416420337	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416420365	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416420642	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416420982	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416421308	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416421417	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416421454	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416421456	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416421468	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416421492	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416421557	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416421585	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416421586	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416421599	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416421619	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416422291	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416422320	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416422321	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416422334	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416422353	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416422429	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416422464	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416422464	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416422475	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416422503	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416422775	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416423077	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416423406	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416423519	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416423557	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416423557	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416423569	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416423582	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416423646	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416423673	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416423674	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416423685	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416423701	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+]]></system-err>
+</testsuite>

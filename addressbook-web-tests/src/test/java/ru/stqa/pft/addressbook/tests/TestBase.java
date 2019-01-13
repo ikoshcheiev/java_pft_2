@@ -5,15 +5,15 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 
-public class TestBase {
-    //l3_m5
+import java.io.IOException;
 
-    protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
-    //protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
-    //protected static final ApplicationManager app = new ApplicationManager(BrowserType.IE);
+public class TestBase {
+
+    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
+    //edit configurations and ad VM option - -Dbrowser = firefox - for ex.
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws IOException {
         app.init();
     }
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.GroupDeletionTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-01-13T21:53:47" hostname="ASUS-A55V" time="1.1">
+  <properties/>
+  <testcase name="testGroupDeletion" classname="ru.stqa.pft.addressbook.tests.GroupDeletionTests" time="1.1"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[1547416426983	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416427014	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416427014	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416427024	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416427047	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416427334	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1547416427364	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416427397	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416427398	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416427408	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416427431	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+1547416427492	Marionette	DEBUG	Received DOM event "beforeunload" for "http://localhost/addressbook/group.php"
+1547416427519	Marionette	DEBUG	Received DOM event "pagehide" for "http://localhost/addressbook/group.php"
+1547416427519	Marionette	DEBUG	Received DOM event "unload" for "http://localhost/addressbook/group.php"
+1547416427531	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://localhost/addressbook/group.php"
+1547416427546	Marionette	DEBUG	Received DOM event "pageshow" for "http://localhost/addressbook/group.php"
+]]></system-err>
+</testsuite>
