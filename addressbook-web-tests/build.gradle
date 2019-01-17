@@ -11,6 +11,7 @@ dependencies {
     compile 'com.beust:jcommander:1.72'
     compile 'com.thoughtworks.xstream:xstream:1.4.11.1'
     compile 'com.google.code.gson:gson:2.8.5'
+    compile 'ch.qos.logback:logback-classic:1.1.5'
 }
 
 task testGroups(type: Test) {
@@ -22,7 +23,8 @@ task testGroups(type: Test) {
         systemProperty 'browser', "${browser}"
     }
     if(project.hasProperty('target')){
-        //add ability to add browser during running tests from console by using -Pbrowser=chrome -for ex.
+        //add name of configuration file <xxx>.properties in which saved info about tested system
+        // written in console as -Ptarget=local  means local.properties in project folder resources
         systemProperty 'target', "${target}"
     }
 }
@@ -36,7 +38,8 @@ task testContacts(type: Test) {
         systemProperty 'browser', "${browser}"
     }
     if(project.hasProperty('target')){
-        //add ability to add browser during running tests from console by using -Pbrowser=chrome -for ex.
+        //add name of configuration file <xxx>.properties in which saved info about tested system
+        // written in console as -Ptarget=local  means local.properties in project folder resources
         systemProperty 'target', "${target}"
     }
 }

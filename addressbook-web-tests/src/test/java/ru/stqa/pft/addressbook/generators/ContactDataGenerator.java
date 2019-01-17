@@ -24,6 +24,8 @@ public class ContactDataGenerator {
     public String format;
 
     public static void main(String[] args) throws IOException {
+        //System.out.println(new File(".").getAbsolutePath());
+        // arguments: -c 1 -f addressbook-web-tests/src/test/resources/contacts.json -d json
         ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {

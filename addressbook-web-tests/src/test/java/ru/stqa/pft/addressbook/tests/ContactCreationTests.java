@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -49,9 +50,13 @@ public class ContactCreationTests extends TestBase {
         }
     }
 
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().homePage();
+    }
+
     @Test(dataProvider = "validContactsFromJson")//(enabled = false)
     public void testContactCreation(ContactData contact) {
-        app.goTo().homePage();
         Set<ContactData> before = app.contact().all();
         File photo = new File("src/test/resources/stru.png");
         contact.withGroup("test 1").withPhoto(photo);
