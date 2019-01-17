@@ -27,9 +27,8 @@ public class ApplicationManager {
     }
 
     public void init() throws IOException {
-        String target = System.getProperty("target", "local");
+        String target = System.getProperty("target", "local"); // в качестве дефолтного значения для target будет использоваться local
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
         if (browser.equals(BrowserType.FIREFOX)){
             System.setProperty("webdriver.gecko.driver", "C:\\toolsAutomation\\geckodriver-v0.20.1-win64\\geckodriver.exe");
             // geckodriver-v0.21.0-win64.zip works only with Firefox v.57+
