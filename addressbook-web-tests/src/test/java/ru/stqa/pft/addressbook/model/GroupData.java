@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +23,12 @@ public class GroupData {
     private String name;
     @Expose
     @Column(name = "group_header")
+    @Type(type = "text")
+    // NullPointerExeption appears in Session session = sessionFactory.openSession() if type is not mentioned
     private String header;
     @Expose
     @Column(name = "group_footer")
+    @Type(type = "text")
     private String footer;
 
     public int getId() {
@@ -68,6 +72,8 @@ public class GroupData {
         return "GroupData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
                 '}';
     }
 
