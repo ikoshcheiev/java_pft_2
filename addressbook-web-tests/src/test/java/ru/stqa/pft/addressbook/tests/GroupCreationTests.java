@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.hamcrest.MatcherAssert;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -54,15 +52,20 @@ public class GroupCreationTests extends TestBase {
 
     @Test(dataProvider = "validGroupsFromJson")
     public void testGroupCreation(GroupData group) {
+        Groups before = app.db().groups();
         app.goTo().groupPage();
-        Groups before = app.group().all();
         app.group().create(group);
+        MatcherAssert.assertThat(app.group().count(), equalTo(before.withAdded(group).size()));
+        //Groups after = app.db().groups();
+/*
+        GroupData newGroup = new GroupData()
+                .withId(app.group().all().stream().mapToInt((g) -> g.getId()).max().getAsInt())
+                .withName(group.getName())
+                .withHeader(group.getHeader())
+                .withFooter(group.getFooter());
+        MatcherAssert.assertThat(after, equalTo(newGroup));
+*/
 
-        MatcherAssert.assertThat(app.group().count(), equalTo(before.size() + 1));
-
-        Groups after = app.group().all();
-        MatcherAssert.assertThat(after, equalTo(
-                before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
     @Test//(enabled = false)

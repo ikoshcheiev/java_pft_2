@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactDetailsTests extends TestBase {
+
+    //Doesn't WORK
+
     @Test
     public void testContactDetails(){
         app.goTo().homePage();

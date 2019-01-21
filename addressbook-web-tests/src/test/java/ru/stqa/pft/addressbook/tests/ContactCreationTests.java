@@ -3,10 +3,12 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
+import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactCreationTests extends TestBase {
 
@@ -53,20 +57,18 @@ public class ContactCreationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-    }
+}
 
     @Test(dataProvider = "validContactsFromJson")//(enabled = false)
     public void testContactCreation(ContactData contact) {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         File photo = new File("src/test/resources/stru.png");
         contact.withGroup("test 1").withPhoto(photo);
         app.contact().create(contact);
 
-        Set<ContactData> after = app.contact().all();
-        //Assert.assertEquals(after.size(), before.size() + 1);
+        MatcherAssert.assertThat(app.contact().count(), equalTo(before.withAdded(contact).size()));
 
-        contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-        before.add(contact);
-        //Assert.assertEquals(before, after);
+        //contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
+        //MatcherAssert.assertThat(after, equalTo(before.withAdded(contact))); //error id=2147483647
     }
 }

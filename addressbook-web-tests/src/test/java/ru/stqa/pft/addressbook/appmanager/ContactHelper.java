@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -85,13 +87,13 @@ public class ContactHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         String groupName = new Select(wd.findElement(By.name("to_group"))).getFirstSelectedOption().getText();
 
         for (WebElement row : rows) {
-            List<WebElement> cells = wd.findElements(By.tagName("td"));
+            List<WebElement> cells = row.findElements(By.tagName("td"));
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String firstName = cells.get(1).getText();
             String lastName = cells.get(2).getText();
@@ -163,5 +165,9 @@ public class ContactHelper extends HelperBase {
 
     private void initContactDetailsOpeningById(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+    }
+
+    public int count() {
+        return wd.findElements(By.name("entry")).size();
     }
 }
