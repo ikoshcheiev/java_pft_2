@@ -20,6 +20,7 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private String browser;
     private ContactHelper contactHelper;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -29,6 +30,9 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local"); // в качестве дефолтного значения для target будет использоваться local
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+
+        dbHelper = new DbHelper();
+
         if (browser.equals(BrowserType.FIREFOX)){
             System.setProperty("webdriver.gecko.driver", "C:\\toolsAutomation\\geckodriver-v0.20.1-win64\\geckodriver.exe");
             // geckodriver-v0.21.0-win64.zip works only with Firefox v.57+
@@ -62,5 +66,9 @@ public class ApplicationManager {
 
     public ContactHelper contact() {
         return contactHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 }

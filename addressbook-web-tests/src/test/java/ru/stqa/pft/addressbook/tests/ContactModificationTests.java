@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import java.util.Set;
 
 public class ContactModificationTests extends TestBase {
+    public Set<ContactData> before;
 
     @BeforeMethod
     public void ensurePreconditions(){
@@ -19,7 +20,7 @@ public class ContactModificationTests extends TestBase {
 
     @Test(enabled = false)
     public void testContactModification() {
-        Set<ContactData> before = app.contact().all();
+        before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId( modifiedContact.getId())
