@@ -18,12 +18,14 @@ public class ContactModificationTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData().withFirstname("first name").withLastname("second name").withGroup("test 1"));
+            app.goTo().homePage();
         }
     }
 
     @Test//(enabled = false)
     public void testContactModification() {
-        Contacts before = app.contact().all();
+        app.goTo().homePage();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId( modifiedContact.getId())
@@ -32,8 +34,8 @@ public class ContactModificationTests extends TestBase {
                 .withGroup("test 1");
         app.contact().modify(contact);
 
-        Contacts after = app.contact().all();
-        MatcherAssert.assertThat(app.contact().count(), equalTo(before.size()));
+        Contacts after = app.db().contacts();
+        MatcherAssert.assertThat(after.size(), equalTo(before.size()));
 
         before.remove(modifiedContact);
         before.add(contact);

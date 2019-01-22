@@ -79,8 +79,8 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        //initContactModification();
         //int id = contact.getId();
+        //initContactModificationById(contact.getId());
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", contact.getId()))).click();
         fillContactForm(contact, false);
         submitContactModification();

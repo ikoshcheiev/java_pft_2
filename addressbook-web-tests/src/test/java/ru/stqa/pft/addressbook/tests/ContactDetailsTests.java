@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.hamcrest.MatcherAssert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -13,10 +14,18 @@ public class ContactDetailsTests extends TestBase {
 
     //Doesn't WORK
 
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().homePage();
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new ContactData().withFirstname("first name").withLastname("second name").withGroup("test 1"));
+            app.goTo().homePage();
+        }
+    }
+
     @Test
     public void testContactDetails(){
-        app.goTo().homePage();
-        ContactData contact = app.contact().all().iterator().next();
+        ContactData contact = app.db().contacts().iterator().next();
         ContactData contactDetailsFromDetailsPage = app.contact().infoFromDetailsPage(contact);
 
         MatcherAssert.assertThat(mergePhones(contact), equalTo(mergePhones(contactDetailsFromDetailsPage)));

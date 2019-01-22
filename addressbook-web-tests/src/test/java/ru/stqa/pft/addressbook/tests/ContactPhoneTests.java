@@ -17,12 +17,13 @@ public class ContactPhoneTests extends TestBase {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData().withFirstname("first name").withLastname("second name").withGroup("test 1"));
+            app.goTo().homePage();
         }
     }
 
     @Test//(enabled = false)
     public void testContactPhones() {
-        ContactData contact = app.contact().all().iterator().next();
+        ContactData contact = app.db().contacts().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         MatcherAssert.assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));

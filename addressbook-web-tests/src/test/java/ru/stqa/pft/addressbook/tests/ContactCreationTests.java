@@ -61,12 +61,12 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")//(enabled = false)
     public void testContactCreation(ContactData contact) {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         File photo = new File("src/test/resources/stru.png");
         contact.withGroup("test 1").withPhoto(photo);
         app.contact().create(contact);
 
-        MatcherAssert.assertThat(app.contact().count(), equalTo(before.withAdded(contact).size()));
+        MatcherAssert.assertThat(app.db().contacts().size(), equalTo(before.withAdded(contact).size()));
 
         //contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         //MatcherAssert.assertThat(after, equalTo(before.withAdded(contact))); //error id=2147483647
