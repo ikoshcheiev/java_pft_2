@@ -61,10 +61,10 @@ public class GroupCreationTests extends TestBase {
         Groups before = app.db().groups();
         //app.goTo().groupPage();
         app.group().create(group);
+        MatcherAssert.assertThat(app.group().count(), equalTo(before.withAdded(group).size()));
         //Groups after = app.db().groups();
-        Groups after = app.db().groups();
-        MatcherAssert.assertThat(after.size(), equalTo(before.withAdded(group).size()));
         //Doesn't work MatcherAssert.assertThat(after, equalTo(before.withAdded(group)));
+        verifyGroupListInUI();
 /*
         GroupData newGroup = new GroupData()
                 .withId(app.group().all().stream().mapToInt((g) -> g.getId()).max().getAsInt())
@@ -83,7 +83,7 @@ public class GroupCreationTests extends TestBase {
         GroupData group = new GroupData().withName("test2'");
         app.group().create(group);
 
-        MatcherAssert.assertThat(app.db().groups().size(), equalTo(before.size()));
+        MatcherAssert.assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.db().groups();
         MatcherAssert.assertThat(after, equalTo(before));
     }

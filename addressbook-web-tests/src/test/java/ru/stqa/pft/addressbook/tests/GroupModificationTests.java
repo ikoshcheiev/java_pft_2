@@ -15,7 +15,6 @@ public class GroupModificationTests extends TestBase {
         if(app.db().groups().size() == 0){
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("test1"));
-
         }
     }
 
@@ -31,7 +30,8 @@ public class GroupModificationTests extends TestBase {
         app.goTo().groupPage();
         app.group().modify(group);
         MatcherAssert.assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.db().groups();
-        MatcherAssert.assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
+        //Groups after = app.db().groups();
+        //MatcherAssert.assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
+        verifyGroupListInUI();
     }
 }

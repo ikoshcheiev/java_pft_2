@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +10,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class TestBase {
     //org.slf4j. It is present in 1.1.5 Logback but absent in 1.3.0
@@ -43,4 +52,26 @@ public class TestBase {
         logger.info("Stop test " + m.getName());
     }
 
+    public void verifyGroupListInUI() {
+        if(Boolean.getBoolean("verifyUI")){
+            Groups dbGroups = app.db().groups();
+            Groups uiGroups = app.group().all();
+            MatcherAssert.assertThat(uiGroups, equalTo(dbGroups.stream()
+                    .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+                    .collect(Collectors.toSet())));
+        }
+    }
+
+    public void verifyContactListInUI() {
+        if(Boolean.getBoolean("verifyUI")){
+        Contacts dbContacts = app.db().contacts();
+        Contacts uiContacts = app.contact().all();
+        MatcherAssert.assertThat(uiContacts.stream()
+                .map((g) -> new ContactData().withId(g.getId()).withFirstname(g.getFirstname()).withLastname(g.getLastname()))
+                .collect(Collectors.toSet()),
+                equalTo(dbContacts.stream()
+                .map((g) -> new ContactData().withId(g.getId()).withFirstname(g.getFirstname()).withLastname(g.getLastname()))
+                .collect(Collectors.toSet())));
+        }
+    }
 }
