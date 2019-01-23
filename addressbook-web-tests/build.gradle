@@ -31,7 +31,6 @@ task testGroups(type: Test) {
     }
     if(project.hasProperty('verifyUI')){
         //add name of configuration file <xxx>.properties in which saved info about tested system
-        // written in console as -Ptarget=local  means local.properties in project folder resources
         systemProperty 'verifyUI', "${verifyUI}"
     }
 }
@@ -51,7 +50,6 @@ task testContacts(type: Test) {
     }
     if(project.hasProperty('verifyUI')){
         //add name of configuration file <xxx>.properties in which saved info about tested system
-        // written in console as -Ptarget=local  means local.properties in project folder resources
         systemProperty 'verifyUI', "${verifyUI}"
     }
 }

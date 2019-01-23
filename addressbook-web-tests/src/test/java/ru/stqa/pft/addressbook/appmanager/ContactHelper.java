@@ -25,10 +25,10 @@ public class ContactHelper extends HelperBase {
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
-        attach(By.name("photo"), contactData.getPhoto()); //problem with photo during comparison UI and DB
         //l3_m9
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("Group test 1 - MODIFIED");
+            attach(By.name("photo"), contactData.getPhoto()); //problem with photo during comparison UI and DB
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }

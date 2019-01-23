@@ -22,6 +22,7 @@ public class ContactData {
     @Expose
     @Column(name = "lastname")
     private String secondname;
+
     @Transient // или одно или другое
     transient private String group;
     @Column(name = "home")
