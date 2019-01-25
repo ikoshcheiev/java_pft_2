@@ -7,10 +7,12 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
 
@@ -27,7 +29,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastname());
         //l3_m9
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("Group test 1 - MODIFIED");
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group")))
+                        .selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
             attach(By.name("photo"), contactData.getPhoto()); //problem with photo during comparison UI and DB
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -137,24 +143,29 @@ public class ContactHelper extends HelperBase {
         String address = wd.findElement(By.xpath("//div[@id='content']/b/..")).getText();
 
         String email = wd.findElement(By.cssSelector("div#content > a")).getAttribute("href");
-        if(!email.isEmpty()) {allPhones = allPhones.substring(0, allPhones.indexOf(wd.findElement(By.xpath("//div[@id='content']/a")).getText()));}
+        if (!email.isEmpty()) {
+            allPhones = allPhones.substring(0, allPhones.indexOf(wd.findElement(By.xpath("//div[@id='content']/a")).getText()));
+        }
 
-        if(allPhones.contains("H:")){
+        if (allPhones.contains("H:")) {
             allPhones = allPhones.substring(allPhones.indexOf("H: "));
             address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
             allPhones = allPhones.substring("H: ".length());
-            if(allPhones.contains("M:"))allPhones = allPhones.substring(0, allPhones.indexOf("M: ")) + allPhones.substring(allPhones.indexOf("M: ") + 3);
-            if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
-        }else if(allPhones.contains("M:")){
+            if (allPhones.contains("M:"))
+                allPhones = allPhones.substring(0, allPhones.indexOf("M: ")) + allPhones.substring(allPhones.indexOf("M: ") + 3);
+            if (allPhones.contains("W:"))
+                allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
+        } else if (allPhones.contains("M:")) {
             allPhones = allPhones.substring(allPhones.indexOf("M: "));
             address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
             allPhones = allPhones.substring("M: ".length());
-            if(allPhones.contains("W:"))allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
-        }else if(allPhones.contains("W:")) {
+            if (allPhones.contains("W:"))
+                allPhones = allPhones.substring(0, allPhones.indexOf("W: ")) + allPhones.substring(allPhones.indexOf("W: ") + 3);
+        } else if (allPhones.contains("W:")) {
             allPhones = allPhones.substring(allPhones.indexOf("W: "));
             address = address.substring(address.indexOf(fullName) + fullName.length(), address.indexOf(allPhones));
             allPhones = allPhones.substring("W: ".length());
-        }else allPhones = null;
+        } else allPhones = null;
 
         email = email.substring(email.indexOf("mailto:") + "mailto:".length());
         address = address.replaceAll("\\n", "");
@@ -170,4 +181,18 @@ public class ContactHelper extends HelperBase {
     public int count() {
         return wd.findElements(By.name("entry")).size();
     }
+
+/*    public void addToAvailableGroup(ContactData contact, Groups groups) {
+
+        List<GroupData> notAddedGroup = new ArrayList<>();
+        for (GroupData groupInContact : contact.getGroups()) {
+            notAddedGroup = groups.stream().filter((group) ->
+                    group.getName().equals(groupInContact.getName())).collect(Collectors.toList());
+        }
+        if (!notAddedGroup.isEmpty()){
+            new Select(wd.findElement(By.name("to_group")))
+                    .selectByVisibleText(notAddedGroup.get(0).getName());
+            wd.findElement(By.name("add"));
+        }
+    }*/
 }
