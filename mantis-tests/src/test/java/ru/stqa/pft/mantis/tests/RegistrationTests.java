@@ -13,7 +13,7 @@ import java.util.List;
 public class RegistrationTests extends TestBase {
 
 
-    @BeforeMethod
+    //@BeforeMethod
     public void startMailServer() {
         app.mail().start();
     }
@@ -23,11 +23,12 @@ public class RegistrationTests extends TestBase {
         long now = System.currentTimeMillis();
         String user = String.format("user%s", now);
         String password = "password";
-        String email = String.format("user$s@localhost.localdomain", now);
+        String email = String.format("user%s@localhost.localdomain", now);
+        app.james().createUser(user, password);
         app.registration().start(user, email);
-        // Captcha isn't disabled and APPLICATION ERROR #1904 appears on sign up without filling captcha
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-        String confirmationLink = findConfirmationLink(mailMessages, email);
+        //List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+                String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);
 
         Assert.assertTrue(app.newSession().login(user, password));
@@ -35,12 +36,11 @@ public class RegistrationTests extends TestBase {
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
         MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-        VerbalExpression regex = VerbalExpression.regex()
-                .find("http://").nonSpace().oneOrMore().build();
+        VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
     }
 
-    @AfterMethod(alwaysRun = true)
+    //  @AfterMethod(alwaysRun = true)
     public void stopMailServer() {
         app.mail().stop();
     }

@@ -11,7 +11,7 @@ dependencies {
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'commons-net:commons-net:3.4' //3.6
     compile 'org.subethamail:subethasmtp:3.1.7'
-    compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.6'
+    compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4' //1.6
 }
 
 test {
@@ -28,7 +28,6 @@ test {
         systemProperty 'target', "${target}"
     }
     if(project.hasProperty('verifyUI')){
-        //add name of configuration file <xxx>.properties in which saved info about tested system
         systemProperty 'verifyUI', "${verifyUI}"
     }
 }

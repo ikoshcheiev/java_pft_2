@@ -32,7 +32,6 @@ public class FtpHelper {
         ftp.deleteFile(target);
         ftp.rename(buckup, target);
         ftp.disconnect();
-
     }
 
 }
