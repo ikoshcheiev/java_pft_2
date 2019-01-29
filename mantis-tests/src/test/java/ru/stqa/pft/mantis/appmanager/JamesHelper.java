@@ -1,11 +1,9 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
-import org.subethamail.wiser.WiserMessage;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.*;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class JamesHelper {
 
-    //L8_M7 on 15th minute
+    // l8_m7 Unable to configure both inner mail service and outer James Apache mail service
 
     private ApplicationManager app;
 
@@ -36,7 +34,7 @@ public class JamesHelper {
     public boolean doesUserExists(String name) {
         initTelnetSession();
         write("verify " + name);
-        String result = readUnit("exist");
+        String result = readUntil("exist");
         closeTelnetSession();
         return result.trim().equals("User " + name + " exist");
     }
@@ -68,31 +66,20 @@ public class JamesHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        readUntil("Login id: ");
+        write("");
+        readUntil("Password: ");
+        write("");
+        readUntil("Login id: ");
+        write("");
+        readUntil("Password: ");
+        write("");
+        readUntil("Welcome " + login + ". Help for a list of commands");
+        write("");
+        readUntil("Password: ");
+        write("");
     }
-
-    readUntil("Login id: ");
-
-    write("");
-
-    readUntil("Password: ");
-
-    write("");
-
-    readUntil("Login id: ");
-
-    write("");
-
-    readUntil("Password: ");
-
-    write("");
-
-    readUntil("Welcome " + login + ". Help for a list of commands");
-
-    write("");
-
-    readUntil("Password: ");
-
-    write("");
 
     private String readUntil(String pattern) {
         try {
@@ -157,9 +144,9 @@ public class JamesHelper {
             if (allMail.size() > 0) {
                 return allMail;
             }
-            try{
+            try {
                 Thread.sleep(1000);
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -180,7 +167,7 @@ public class JamesHelper {
         } catch (MessagingException e) {
             e.printStackTrace();
             return null;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
