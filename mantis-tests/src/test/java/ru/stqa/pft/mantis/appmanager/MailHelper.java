@@ -16,7 +16,8 @@ public class MailHelper {
 
     public MailHelper(ApplicationManager app) {
         this.app = app;
-        wiser = new Wiser();
+        wiser = new Wiser(23);
+        wiser.setHostname("smtp-server.com");
     }
 
     public List<MailMessage> waitForMail(int count, long timeout) {
@@ -26,7 +27,7 @@ public class MailHelper {
                 return wiser.getMessages().stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
             }
             try {
-                Thread.sleep(6000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -37,8 +38,8 @@ public class MailHelper {
     public static MailMessage toModelMail(WiserMessage m) {
         try {
             MimeMessage mm = m.getMimeMessage();
-            return new MailMessage(mm.getAllRecipients()[0].toString(),
-                    (String) mm.getContent()); // брать первого(единственного) получателся из всех
+            return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
+            // брать первого(единственного) получателся из всех
         } catch (MessagingException e) {
             e.printStackTrace();
             return null;

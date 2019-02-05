@@ -1,3 +1,4 @@
+/*
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
@@ -173,3 +174,4 @@ public class JamesHelper {
         }
     }
 }
+*/

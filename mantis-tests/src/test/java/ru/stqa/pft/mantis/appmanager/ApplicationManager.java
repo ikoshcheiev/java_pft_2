@@ -20,7 +20,7 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
-    private JamesHelper jamesHelper;
+    /*private JamesHelper jamesHelper;*/
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -85,10 +85,10 @@ public class ApplicationManager {
         return mailHelper;
     }
 
-    public JamesHelper james(){
+    /*public JamesHelper james(){
         if(jamesHelper == null){
             jamesHelper = new JamesHelper(this);
         }
         return jamesHelper;
-    }
+    }*/
 }
